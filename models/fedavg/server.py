@@ -37,9 +37,10 @@ class Server(ServerModule):
                     client = self.clients[gid]
                     selected = True if cid in selected_ids else False
                     with tf.device('/device:GPU:{}'.format(gid)):
-                        thrd = threading.Thread(target=self.invoke_client, args=(client, cid, curr_round, selected, self.get_weights(), self.get_adapts()))
+                        thrd = threading.Thread(target=self.invoke_client, args=(client, cid, curr_round, selected, self.get_weights()))
                         self.threads.append(thrd)
                         thrd.start()
+                        thrd.join()
                 # wait all threads each round
                 for thrd in self.threads:
                     thrd.join()
@@ -49,29 +50,8 @@ class Server(ServerModule):
         self.logger.print('server', 'done. ({}s)'.format(time.time()-self.start_time))
         sys.exit()
 
-    def invoke_client(self, client, cid, curr_round, selected, weights, adapts):
-        update = client.train_one_round(cid, curr_round, selected, weights, adapts)
+    def invoke_client(self, client, cid, curr_round, selected, weights):
+        update = client.train_one_round(cid, curr_round, selected, weights)
         if not update == None:
             self.updates.append(update)
-            if self.is_last_round:
-                self.client_adapts.append(client.get_adaptives())
-
-    def get_adapts(self):
-        if self.curr_round%self.args.num_rounds==1 and not self.curr_round==1:
-            from_kb = []
-            for lid, shape in enumerate(self.nets.shapes):
-                shape = np.concatenate([self.nets.shapes[lid],[int(round(self.args.num_clients*self.args.frac_clients))]], axis=0)
-                from_kb_l = np.zeros(shape)
-                for cid, ca in enumerate(self.client_adapts):
-                    try:
-                        if len(shape)==5:
-                            from_kb_l[:,:,:,:,cid] = ca[lid]
-                        else:
-                            from_kb_l[:,:,cid] = ca[lid]
-                    except:
-                        pdb.set_trace()           
-                from_kb.append(from_kb_l)
-            return from_kb
-        else:
-            return None
         

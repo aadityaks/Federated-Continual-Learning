@@ -13,10 +13,10 @@
             "justMyCode": true,
             "args": [   "--gpu",                "0,1,2,3,4", 
                         "--work-type",          "train",
-                        "--model",              "fedweit",
+                        "--model",              "fedprox",
                         "--task",               "non_iid_50",
                         "--gpu-mem-multiplier", "9",
-                        "--num-rounds",         "20",
+                        "--num-rounds",         "2",
                         "--num-epochs",         "1",
                         "--batch-size",         "100",
                         "--seed",               "777"]

@@ -14,12 +14,6 @@ from misc.utils import *
 from third_party.mixture_loader.mixture import *
 
 class DataGenerator:
-    """ Data Generator
-    Generating non_iid_50 task
-    
-    Created by:
-        Wonyong Jeong (wyjeong@kaist.ac.kr)
-    """
     def __init__(self, args):
         self.args = args
         self.seprate_ratio = (0.7, 0.2, 0.1) # train, test, valid

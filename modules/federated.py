@@ -80,6 +80,7 @@ class ServerModule:
         else:
             num_parallel = 5
             self.clients = {i:self.ClientObj(i, opt_copied, initial_weights) for i in range(num_parallel)}
+            print("dummy comment")
 
     def get_weights(self):
         return self.global_weights

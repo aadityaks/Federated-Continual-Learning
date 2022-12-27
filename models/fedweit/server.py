@@ -40,6 +40,7 @@ class Server(ServerModule):
                         thrd = threading.Thread(target=self.invoke_client, args=(client, cid, curr_round, selected, self.get_weights(), self.get_adapts()))
                         self.threads.append(thrd)
                         thrd.start()
+                        thrd.join()
                 # wait all threads each round
                 for thrd in self.threads:
                     thrd.join()

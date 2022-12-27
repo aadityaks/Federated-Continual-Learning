@@ -8,7 +8,9 @@ def set_config(args):
     args.client_sparsity = 0.3
     args.server_sparsity = 0.3 
 
-    args.model ='fedweit'
+    #args.model ='fedprox'
+    args.mu = 5e-3
+    # args.model ='fedweit'
     args.base_network = 'lenet' 
     
     # adaptive learning rate

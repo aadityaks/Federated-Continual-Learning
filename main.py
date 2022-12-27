@@ -29,7 +29,17 @@ def main(args):
             from models.fedweit.server import Server
             server = Server(args)
             server.run()
-        
+
+        if args.model == 'fedprox':
+            from models.fedprox.server import Server
+            server = Server(args)
+            server.run()
+
+        if args.model == 'fedavg':
+            from models.fedavg.server import Server
+            server = Server(args)
+            server.run()
+
         else:
             print('incorrect model was given: {}'.format(args.model))
             os._exit(0)
