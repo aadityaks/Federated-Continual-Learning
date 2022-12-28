@@ -22,7 +22,7 @@ for i,j in enumerate(dir_list):
     if 'fedweit' in j:
         algo['fedweit'] = i
 
-print(algo)
+
 # algo = {
 # 'fedavg':0,
 # 'fedprox':1,
