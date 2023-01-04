@@ -40,7 +40,7 @@ def set_data_config(args):
     
     if args.task in ['non_iid_50'] :
         args.datasets    = [0, 1, 2, 3, 4, 5, 6, 7]
-        args.num_clients = 5
+        args.num_clients = 1
         args.num_tasks   = 10 
         args.num_classes = 5
         args.frac_clients = 1.0
